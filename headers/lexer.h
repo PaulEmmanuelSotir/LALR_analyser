@@ -14,6 +14,7 @@ public:
 	bool Forward();
 	void shift(Symbol s, Etat *e);
 	bool reduction(int n, Symbol s);
+	void print_stack();
 
 private:
 	bool transition(Symbol s);

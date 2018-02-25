@@ -77,5 +77,12 @@ bool Lexer::transition(Symbol s)
 	return statestack.top()->transition(*this, s);
 }
 
-//	void print_stack();
-//		l.print_stack();
+void Lexer::print_stack()
+{
+	std::cout << std::endl << "#### Symbol stack ####" << std::endl; 
+	while(!symbolstack.empty())
+	{
+		std::cout << ">\t" << symbolstack.top() << std::endl;
+		symbolstack.pop();
+	}
+}
