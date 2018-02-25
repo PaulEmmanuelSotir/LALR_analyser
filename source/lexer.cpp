@@ -54,7 +54,7 @@ bool Lexer::Forward()
 	return transition(buffer);
 }
 
-void Lexer::shift(Symbol s, Etat *e)
+void Lexer::shift(Symbol s, State *e)
 {
 	symbolstack.push(s);
 	statestack.push(e);

@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "etat.h"
+#include "state.h"
 #include "symbol.h"
 #include "lexer.h"
 
