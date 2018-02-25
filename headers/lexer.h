@@ -16,7 +16,7 @@ protected:
 	std::string stream;
 	size_t head = 0;
 	Symbol buffer = Symbol(Symbols::ERROR);
-	bool readbuffer = false;
+	bool readbuffer = true;
 	Automate automate;
 };
 

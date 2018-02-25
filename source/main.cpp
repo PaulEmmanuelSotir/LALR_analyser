@@ -9,12 +9,12 @@ int main(void)
 	Lexer l("(1+34)*123");
 
 	Symbol s = l.Consult();
-	while (s != Symbols::END)
+	while (static_cast<Symbols>(s) != Symbols::END)
 	{
 		s.Print();
 		std::cout << std::endl;
 		l.Forward();
-		Symbol s = l.Consult();
+		s = l.Consult();
 	}
 	return EXIT_SUCCESS;
 }

@@ -5,14 +5,14 @@
 # TODO: g�rer les extentions .hpp, .cxx, ...
 
 # Debug mode (comment this line to build project in release mode)
-#DEBUG = true
+DEBUG = true
 
 # Compiler
 CC = g++
 # Command used to remove files
 RM = rm -f
 # Compiler and pre-processor options
-CPPFLAGS = -Wall -std=c++17 -Ofast
+CPPFLAGS = -Wall -std=c++17 -O0 # -Ofast
 # Debug flags
 DEBUGFLAGS = -g
 # Resulting program file name

@@ -2,11 +2,11 @@
 
 Symbol Lexer::Consult()
 {
-	if (readbuffer)
+	if(readbuffer)
 	{
-		if (head != stream.length())
+		if(head != stream.length())
 		{
-			switch (stream[head])
+			switch(stream[head])
 			{
 			case '(':
 				buffer = Symbol(Symbols::OPENPAR);
@@ -25,7 +25,7 @@ Symbol Lexer::Consult()
 				head++;
 				break;
 			default:
-				if (stream[head] <= '9' && stream[head] >= '0')
+				if(stream[head] <= '9' && stream[head] >= '0')
 				{
 					int resultat = stream[head] - '0';
 					int i = 1;

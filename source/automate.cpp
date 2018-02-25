@@ -10,7 +10,7 @@ void Automate::reduction(int n, Symbol s)
 {
 	for (int i = 0; i < n; i++)
 	{
-		delete (statestack.top());
+		delete(statestack.top());
 		statestack.pop();
 	}
 	transition(s);
