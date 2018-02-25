@@ -82,7 +82,7 @@ void Lexer::print_stack()
 	std::cout << std::endl << "#### Symbol stack ####" << std::endl; 
 	while(!symbolstack.empty())
 	{
-		std::cout << ">\t" << symbolstack.top() << std::endl;
+		std::cout << "|>\t" << symbolstack.top() << std::endl;
 		symbolstack.pop();
 	}
 }

@@ -5,16 +5,18 @@
 
 #include "lexer.h"
  
-int main(void)
+int main(int argc, char* argv[])
 {
-	Lexer l("(1+34)*123+");
+	std::string str_to_parse = argc <= 1 ? "(1+34)*123+" : std::string(argv[1]);
+	Lexer l(str_to_parse);
+	std::cout << "Parsing \'" << str_to_parse << "\'..." << std::endl << std::endl;
 
 	try
 	{
 		while(true)
 		{
 			Symbol s = l.Consult();
-			std::cout << s << std::endl;
+			std::cout << "|> " << s << std::endl;
 			if(l.Forward()) {
 				std::cout << std::endl << "Valid algebric expression";
 				break;
