@@ -1,12 +1,12 @@
 #include "automate.h"
 
-void automate::decalage(Symbole s, Etat *e)
+void Automate::decalage(Symbol s, Etat *e)
 {
 	symbolstack.push(s);
 	statestack.push(e);
 }
 
-void automate::reduction(int n, Symbole s)
+void Automate::reduction(int n, Symbol s)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -16,17 +16,17 @@ void automate::reduction(int n, Symbole s)
 	transition(s);
 }
 
-void automate::transition(Symbole s)
+void Automate::transition(Symbol s)
 {
 	statestack.top()->transition(*this, s);
 }
 
-void automate::pushSymbol(Symbole s)
+void Automate::pushSymbol(Symbol s)
 {
 	symbolstack.push(s);
 }
 
-Symbole automate::popSymbol()
+Symbol Automate::popSymbol()
 {
 	auto s = symbolstack.top();
 	symbolstack.pop();

@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.pl": "prolog",
+        "iosfwd": "cpp",
+        "xlocale": "cpp",
+        "xstring": "cpp",
+        "stack": "cpp",
+        "system_error": "cpp",
+        "xtr1common": "cpp",
+        "string": "cpp",
+        "iostream": "cpp",
+        "xlocnum": "cpp"
+    },
+    "editor.formatOnSave": false
+}

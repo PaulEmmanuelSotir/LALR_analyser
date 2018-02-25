@@ -2,19 +2,21 @@
 #define AUTOMATE_H
 #include <stack>
 #include "etat.h"
-#include "symbole.h"
+#include "symbol.h"
 
-class Automate {
-	public:
-		Automate()  { statestack.push(new E0()); };
-		void decalage(Symbole s, Etat* e);
-		void reduction(int n, Symbole s);
-		void transition(Symbole s);
-		void pushSymbol(Symbole s);
-		Symbole popSymbol();
-	private:
-		std::stack<Symbole> symbolstack;
-		std::stack<Etat*> statestack;
+class Automate
+{
+  public:
+	Automate() { statestack.push(new E0()); };
+	void decalage(Symbol s, Etat *e);
+	void reduction(int n, Symbol s);
+	void transition(Symbol s);
+	void pushSymbol(Symbol s);
+	Symbol popSymbol();
+
+  private:
+	std::stack<Symbol> symbolstack;
+	std::stack<Etat*> statestack;
 };
 
 #endif

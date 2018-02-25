@@ -1,50 +1,55 @@
 #include "lexer.h"
 
-Symbole Lexer::Consulter() {
-	if (readTampon) {
-		if (tete == flux.length())
-			tampon = Symbole(FIN);
-		else
+Symbol Lexer::Consult()
+{
+	if (readbuffer)
+	{
+		if (head != stream.length())
 		{
-			switch (flux[tete]) {
-				case '(':
-					tampon = Symbole(OPENPAR);
-					tete++;
-					break;
-				case ')':
-					tampon = Symbole(CLOSEPAR);
-					tete++;
-					break;
-				case '*':
-					tampon = Symbole(MULT);
-					tete++;
-					break;
-				case '+':
-					tampon = Symbole(PLUS);
-					tete++;
-					break;
-				default:
-					if (flux[tete] <= '9' && flux[tete] >= '0') {
-						int resultat = flux[tete] - '0';
-						int i = 1;
-						while (flux[tete+i] <= '9' && flux[tete+i] >= '0') {
-							resultat = resultat * 10 + (flux[tete+i] - '0');
-							i++;
-						}
-						tete = tete + i;
-						tampon = Entier(resultat);
+			switch (stream[head])
+			{
+			case '(':
+				buffer = Symbol(Symbols::OPENPAR);
+				head++;
+				break;
+			case ')':
+				buffer = Symbol(Symbols::CLOSEPAR);
+				head++;
+				break;
+			case '*':
+				buffer = Symbol(Symbols::MULT);
+				head++;
+				break;
+			case '+':
+				buffer = Symbol(Symbols::PLUS);
+				head++;
+				break;
+			default:
+				if (stream[head] <= '9' && stream[head] >= '0')
+				{
+					int resultat = stream[head] - '0';
+					int i = 1;
+					while (stream[head + i] <= '9' && stream[head + i] >= '0')
+					{
+						resultat = resultat * 10 + (stream[head + i] - '0');
+						i++;
 					}
-					else {
-						tampon = Symbole(ERREUR);
-					}
+					head = head + i;
+					buffer = Symbol(Symbols::INT); // Integer(resultat); TODO: implement integer and expr classes?
+				}
+				else
+					buffer = Symbol(Symbols::ERROR);
 			}
 		}
+		else
+			buffer = Symbol(Symbols::END);
+		readbuffer = false;
 	}
-	return tampon;
+	return buffer;
 }
 
-void Lexer::Avancer() {
-	automate.transition(tampon);
-	readTampon = true;
+void Lexer::Forward()
+{
+	automate.transition(buffer);
+	readbuffer = true;
 }
-
