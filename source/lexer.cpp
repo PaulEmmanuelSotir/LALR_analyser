@@ -51,5 +51,31 @@ Symbol Lexer::Consult()
 bool Lexer::Forward()
 {
 	readbuffer = true;
-	return automate.transition(buffer);
+	return transition(buffer);
 }
+
+void Lexer::shift(Symbol s, Etat *e)
+{
+	symbolstack.push(s);
+	statestack.push(e);
+}
+
+bool Lexer::reduction(int n, Symbol s)
+{
+	for (int i = 0; i < n; i++)
+	{
+		delete(statestack.top());
+		statestack.pop();
+		symbolstack.pop();
+	}
+	transition(Symbol(Symbols::EXPR));
+	return transition(s);
+}
+
+bool Lexer::transition(Symbol s)
+{
+	return statestack.top()->transition(*this, s);
+}
+
+//	void print_stack();
+//		l.print_stack();
