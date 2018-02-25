@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -8,13 +9,21 @@ int main(void)
 {
 	Lexer l("(1+34)*123");
 
-	Symbol s = l.Consult();
-	while (static_cast<Symbols>(s) != Symbols::END)
+	try
 	{
-		s.Print();
-		std::cout << std::endl;
-		l.Forward();
-		s = l.Consult();
+		while(true)
+		{
+			Symbol s = l.Consult();
+			std::cout << s << std::endl;
+			if(l.Forward()) {
+				std::cout << std::endl << "Valid algebric expression";
+				break;
+			}
+		}
+	}
+	catch(const std::invalid_argument& e)
+	{
+		std::cout << std::endl << "Invalid argument: " << e.what();
 	}
 	return EXIT_SUCCESS;
 }

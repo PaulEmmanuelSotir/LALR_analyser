@@ -1,9 +1,8 @@
+#include <stdexcept>
 #include "etat.h"
 #include "symbol.h"
 #include "automate.h"
 
-// TODO: surcharger << à la place
-void print() {}
 
 bool E0::transition(Automate &automate, Symbol s) const
 {
@@ -19,7 +18,7 @@ bool E0::transition(Automate &automate, Symbol s) const
 		automate.decalage(s, new E1);
 		break;
 	default:
-		break;
+		throw std::invalid_argument("Bad symbol at E0 state");
 	}
 	return false;
 }
@@ -37,7 +36,7 @@ bool E1::transition(Automate &automate, Symbol s) const
 	case Symbols::END:
 		return true; // accepter
 	default:
-		break;
+		throw std::invalid_argument("Bad symbol at E1 state");
 	}
 	return false;
 }
@@ -52,8 +51,11 @@ bool E2::transition(Automate &automate, Symbol s) const
 	case Symbols::OPENPAR:
 		automate.decalage(s, new E2);
 		break;
-	default:
+	case Symbols::EXPR:
+		automate.decalage(s, new E6);
 		break;
+	default:
+		throw std::invalid_argument("Bad symbol at E2 state");
 	}
 	return false;
 }
@@ -61,9 +63,8 @@ bool E2::transition(Automate &automate, Symbol s) const
 bool E3::transition(Automate &automate, Symbol s) const
 {
 	// Reduction 5
-	automate.pushSymbol(s); // LR(1), on ne consomme pas ce Symbol
-	Symbol s1 = automate.popSymbol();
-	automate.reduction(1, Symbol(Symbols::EXPR));
+	automate.reduction(1, s);
+	return false;
 }
 
 bool E4::transition(Automate &automate, Symbol s) const
@@ -76,8 +77,11 @@ bool E4::transition(Automate &automate, Symbol s) const
 	case Symbols::OPENPAR:
 		automate.decalage(s, new E2);
 		break;
-	default:
+	case Symbols::EXPR:
+		automate.decalage(s, new E7);
 		break;
+	default:
+		throw std::invalid_argument("Bad symbol at E4 state");
 	}
 	return false;
 }
@@ -92,8 +96,11 @@ bool E5::transition(Automate &automate, Symbol s) const
 	case Symbols::OPENPAR:
 		automate.decalage(s, new E2);
 		break;
-	default:
+	case Symbols::EXPR:
+		automate.decalage(s, new E8);
 		break;
+	default:
+		throw std::invalid_argument("Bad symbol at E5 state");
 	}
 	return false;
 }
@@ -112,7 +119,7 @@ bool E6::transition(Automate &automate, Symbol s) const
 		automate.decalage(s, new E9);
 		break;
 	default:
-		break;
+		throw std::invalid_argument("Bad symbol at E6 state");
 	}
 	return false;
 }
@@ -126,11 +133,7 @@ bool E7::transition(Automate &automate, Symbol s) const
 		break;
 	default:
 		// Reduction 2
-		automate.pushSymbol(s); // LR(1), on ne consomme pas ce Symbol
-		Symbol s1 = automate.popSymbol();
-		automate.popSymbol();
-		Symbol s2 = automate.popSymbol();
-		automate.reduction(3, Symbol(Symbols::EXPR));
+		automate.reduction(3, s);
 		break;
 	}
 	return false;
@@ -139,21 +142,13 @@ bool E7::transition(Automate &automate, Symbol s) const
 bool E8::transition(Automate &automate, Symbol s) const
 {
 	// Reduction 3
-	automate.pushSymbol(s); // LR(1), on ne consomme pas ce Symbol
-	Symbol s1 = automate.popSymbol();
-	automate.popSymbol();
-	Symbol s2 = automate.popSymbol();
-	automate.reduction(3, Symbol(Symbols::EXPR));
+	automate.reduction(3, s);
 	return false;
 }
 
 bool E9::transition(Automate &automate, Symbol s) const
 {
 	// Reduction 4
-	automate.pushSymbol(s); // LR(1), on ne consomme pas ce Symbol
-	automate.popSymbol();
-	Symbol s1 = automate.popSymbol();
-	automate.popSymbol();
-	automate.reduction(3, Symbol(Symbols::EXPR));
+	automate.reduction(3, s);
 	return false;
 }

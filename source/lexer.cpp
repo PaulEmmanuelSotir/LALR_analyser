@@ -48,8 +48,8 @@ Symbol Lexer::Consult()
 	return buffer;
 }
 
-void Lexer::Forward()
+bool Lexer::Forward()
 {
-	automate.transition(buffer);
 	readbuffer = true;
+	return automate.transition(buffer);
 }

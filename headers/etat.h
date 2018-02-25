@@ -9,7 +9,6 @@ class Etat
 {
    public:
       virtual ~Etat() = default;
-      void print() const;
       virtual bool transition(Automate& automate, Symbol s) const = 0;
 };
 

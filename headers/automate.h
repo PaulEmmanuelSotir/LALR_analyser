@@ -10,7 +10,7 @@ class Automate
 	Automate() { statestack.push(new E0()); };
 	void decalage(Symbol s, Etat *e);
 	void reduction(int n, Symbol s);
-	void transition(Symbol s);
+	bool transition(Symbol s);
 	void pushSymbol(Symbol s);
 	Symbol popSymbol();
 

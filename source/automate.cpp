@@ -12,13 +12,15 @@ void Automate::reduction(int n, Symbol s)
 	{
 		delete(statestack.top());
 		statestack.pop();
+		symbolstack.pop();
 	}
+	transition(Symbol(Symbols::EXPR));
 	transition(s);
 }
 
-void Automate::transition(Symbol s)
+bool Automate::transition(Symbol s)
 {
-	statestack.top()->transition(*this, s);
+	return statestack.top()->transition(*this, s);
 }
 
 void Automate::pushSymbol(Symbol s)

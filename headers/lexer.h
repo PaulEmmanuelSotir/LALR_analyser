@@ -10,7 +10,7 @@ class Lexer
 public:
 	Lexer(std::string s) : stream(s){};
 	Symbol Consult();
-	void Forward();
+	bool Forward();
 
 protected:
 	std::string stream;

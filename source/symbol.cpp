@@ -1,7 +1,8 @@
 #include <iostream>
 #include "symbol.h"
 
-void Symbol::Print() const
+std::ostream& operator<<(std::ostream& os, const Symbol& s)
 {
-	std::cout << Labels[static_cast<int>(id)];
+	os << Labels[static_cast<int>(s.id)];
+	return os;
 }
